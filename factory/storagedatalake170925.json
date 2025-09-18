@@ -1,0 +1,9 @@
+{
+	"name": "storagedatalake170925",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7c1fb346-6091-4296-8214-cd811ef05cf4",
+		"tenantId": "c68ce59e-97c5-47f0-9a76-f4e95f4db832"
+	}
+}
