@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "storagedatalake170925"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1170925NEW_accountKey": {
+			"value": ""
+		},
+		"DEST170925_connectionString": {
+			"value": ""
+		},
+		"DESTCSV_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1170925NEW_properties_typeProperties_url": {
+			"value": "https://stoadfdatalake170925.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
