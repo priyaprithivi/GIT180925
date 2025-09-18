@@ -17,7 +17,22 @@
 		"DESTCSV_connectionString": {
 			"value": ""
 		},
+		"http180925_password": {
+			"value": ""
+		},
+		"git180925_accountKey": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1170925NEW_properties_typeProperties_url": {
+			"value": "https://stoadfdatalake170925.dfs.core.windows.net/"
+		},
+		"http180925_properties_typeProperties_url": {
+			"value": "https://github.com/priyaprithivi/GIT180925.git"
+		},
+		"http180925_properties_typeProperties_userName": {
+			"value": "prithika1951@gmail.com"
+		},
+		"git180925_properties_typeProperties_url": {
 			"value": "https://stoadfdatalake170925.dfs.core.windows.net/"
 		}
 	}

@@ -23,7 +23,27 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'DESTCSV'"
 		},
+		"http180925_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'http180925'"
+		},
+		"git180925_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'git180925'"
+		},
 		"AzureDataLakeStorage1170925NEW_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stoadfdatalake170925.dfs.core.windows.net/"
+		},
+		"http180925_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://github.com/priyaprithivi/GIT180925.git"
+		},
+		"http180925_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "prithika1951@gmail.com"
+		},
+		"git180925_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://stoadfdatalake170925.dfs.core.windows.net/"
 		}
@@ -268,6 +288,64 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('DESTCSV_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 10,
+							"cleanup": false,
+							"customProperties": []
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/http180925')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('http180925_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('http180925_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('http180925_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/git180925')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('git180925_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('git180925_accountKey')]"
+					}
 				}
 			},
 			"dependsOn": []

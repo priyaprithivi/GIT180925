@@ -23,7 +23,27 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'DESTCSV'"
 		},
+		"http180925_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'http180925'"
+		},
+		"git180925_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'git180925'"
+		},
 		"AzureDataLakeStorage1170925NEW_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stoadfdatalake170925.dfs.core.windows.net/"
+		},
+		"http180925_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://github.com/priyaprithivi/GIT180925.git"
+		},
+		"http180925_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "prithika1951@gmail.com"
+		},
+		"git180925_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://stoadfdatalake170925.dfs.core.windows.net/"
 		},
@@ -66,8 +86,23 @@
 					"DESTCSV_connectionString": {
 						"value": "[parameters('DESTCSV_connectionString')]"
 					},
+					"http180925_password": {
+						"value": "[parameters('http180925_password')]"
+					},
+					"git180925_accountKey": {
+						"value": "[parameters('git180925_accountKey')]"
+					},
 					"AzureDataLakeStorage1170925NEW_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1170925NEW_properties_typeProperties_url')]"
+					},
+					"http180925_properties_typeProperties_url": {
+						"value": "[parameters('http180925_properties_typeProperties_url')]"
+					},
+					"http180925_properties_typeProperties_userName": {
+						"value": "[parameters('http180925_properties_typeProperties_userName')]"
+					},
+					"git180925_properties_typeProperties_url": {
+						"value": "[parameters('git180925_properties_typeProperties_url')]"
 					}
 				}
 			},
