@@ -1,0 +1,49 @@
+{
+	"name": "Json1180925",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "git180925",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "mydata.json",
+				"fileSystem": "srcdtalake170925"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string"
+				},
+				"age": {
+					"type": "integer"
+				},
+				"isStudent": {
+					"type": "boolean"
+				},
+				"courses": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"address": {
+					"type": "object",
+					"properties": {
+						"street": {
+							"type": "string"
+						},
+						"city": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		}
+	}
+}
