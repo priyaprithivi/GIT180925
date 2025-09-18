@@ -23,15 +23,19 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'DESTCSV'"
 		},
-		"http180925_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'http180925'"
-		},
 		"git180925_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'git180925'"
 		},
+		"http180925_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'http180925'"
+		},
 		"AzureDataLakeStorage1170925NEW_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stoadfdatalake170925.dfs.core.windows.net/"
+		},
+		"git180925_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://stoadfdatalake170925.dfs.core.windows.net/"
 		},
@@ -42,10 +46,6 @@
 		"http180925_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "prithika1951@gmail.com"
-		},
-		"git180925_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://stoadfdatalake170925.dfs.core.windows.net/"
 		}
 	},
 	"variables": {
@@ -293,21 +293,17 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
-			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"name": "[concat(parameters('factoryName'), '/git180925')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"type": "Managed",
+				"annotations": [],
+				"type": "AzureBlobFS",
 				"typeProperties": {
-					"computeProperties": {
-						"location": "AutoResolve",
-						"dataFlowProperties": {
-							"computeType": "General",
-							"coreCount": 8,
-							"timeToLive": 10,
-							"cleanup": false,
-							"customProperties": []
-						}
+					"url": "[parameters('git180925_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('git180925_accountKey')]"
 					}
 				}
 			},
@@ -334,21 +330,173 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/git180925')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
+				"type": "Managed",
 				"typeProperties": {
-					"url": "[parameters('git180925_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('git180925_accountKey')]"
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 10,
+							"cleanup": false,
+							"customProperties": []
+						}
 					}
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText3180925')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "http180925",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "https://github.com/priyaprithivi/GIT180925.git"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/http180925')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Json1180925')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "git180925",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "mydata.json",
+						"fileSystem": "srcdtalake170925"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"name": {
+							"type": "string"
+						},
+						"age": {
+							"type": "integer"
+						},
+						"isStudent": {
+							"type": "boolean"
+						},
+						"courses": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"address": {
+							"type": "object",
+							"properties": {
+								"street": {
+									"type": "string"
+								},
+								"city": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/git180925')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/git180925')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET",
+									"requestTimeout": ""
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "DelimitedText3180925",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Json1180925",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DelimitedText3180925')]",
+				"[concat(variables('factoryId'), '/datasets/Json1180925')]"
+			]
 		}
 	]
 }
