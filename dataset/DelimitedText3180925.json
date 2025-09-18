@@ -1,0 +1,22 @@
+{
+	"name": "DelimitedText3180925",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "http180925",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "https://github.com/priyaprithivi/GIT180925.git"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
