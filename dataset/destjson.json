@@ -1,5 +1,5 @@
 {
-	"name": "gitjsonsrc",
+	"name": "destjson",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "git180925",

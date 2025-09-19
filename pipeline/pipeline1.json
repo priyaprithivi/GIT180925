@@ -1,9 +1,9 @@
 {
-	"name": "git180925",
+	"name": "pipeline1",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "git180925",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -16,14 +16,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
+						"type": "JsonSource",
 						"storeSettings": {
-							"type": "HttpReadSettings",
-							"requestMethod": "GET",
-							"requestTimeout": ""
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
+							"type": "JsonReadSettings"
 						}
 					},
 					"sink": {
@@ -39,13 +39,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DelimitedText3180925",
+						"referenceName": "gitjsonsrc",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "gitjsonsrc",
+						"referenceName": "destjson",
 						"type": "DatasetReference"
 					}
 				]
